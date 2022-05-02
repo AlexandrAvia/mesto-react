@@ -6,7 +6,11 @@ function App() {
   return (
     <div className="page">
       <Header />
-      <Main />
+      <Main
+        onEditProfile={handleEditProfileClick}
+        onAddPlace={handleAddPlaceClick}
+        onEditAvatar={handleEditAvatarClick}
+      />
       <Footer />
       {/* popup profile edit */}
       <article className="popup popup_type_profile">
