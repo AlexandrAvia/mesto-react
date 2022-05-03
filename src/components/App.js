@@ -1,8 +1,37 @@
+import React from "react";
 import Header from "./Header";
 import Main from "./Main";
 import Footer from "./Footer";
+import PopupWithForm from "./PopupWithForm";
 
 function App() {
+  const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] =
+    React.useState(false);
+  const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] =
+    React.useState(false);
+  const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = React.useState(false);
+
+  function handleEditAvatarClick() {
+    setIsEditAvatarPopupOpen(true);
+  }
+
+  function handleEditProfileClick() {
+    console.log("props");
+    setIsEditProfilePopupOpen(true);
+  }
+
+  function handleAddPlaceClick() {
+    setIsAddPlacePopupOpen(true);
+  }
+
+  function closeAllPopups() {
+    setIsEditAvatarPopupOpen(false);
+    setIsEditProfilePopupOpen(false);
+    setIsAddPlacePopupOpen(false);
+    /* setIsCardDeletePopupOpen(false);
+    setSelectedCard({}); */
+  }
+
   return (
     <div className="page">
       <Header />
@@ -13,14 +42,14 @@ function App() {
       />
       <Footer />
       {/* popup profile edit */}
-      <article className="popup popup_type_profile">
-        <div className="popup__container">
-          <button className="popup__close" type="reset" />
-          <h2 className="popup__title">Редактировать профиль</h2>
-          <form
-            className="popup__form popup__form_profile"
-            name="form__profile"
-          >
+      <PopupWithForm
+        onClose={closeAllPopups}
+        isOpen={isEditProfilePopupOpen}
+        name="profile"
+        title="Редактировать профиль"
+        buttonText="Сохранить"
+        children={
+          <>
             <div className="popup__fieldset">
               <input
                 type="text"
@@ -49,24 +78,18 @@ function App() {
               />
               <span className="popup__error proffesion-error" />
             </div>
-            <button
-              className="popup__submit popup__submit_profile"
-              type="submit"
-            >
-              Сохранить
-            </button>
-          </form>
-        </div>
-      </article>
+          </>
+        }
+      />
       {/* popup add gallery card  */}
-      <article className="popup popup_type_gallery">
-        <div className="popup__container">
-          <button className="popup__close popup__close_gallery" type="reset" />
-          <h2 className="popup__title">Новое место</h2>
-          <form
-            className="popup__form popup__form_gallery"
-            name="form__gallery"
-          >
+      <PopupWithForm
+        onClose={closeAllPopups}
+        isOpen={isAddPlacePopupOpen}
+        name="gallery"
+        title="Новое место"
+        buttonText="Создать"
+        children={
+          <>
             <div className="popup__fieldset">
               <input
                 type="text"
@@ -93,12 +116,33 @@ function App() {
               />
               <span className="popup__error place-url-error" />
             </div>
-            <button className="popup__submit popup__submit_add" type="submit">
-              Создать
-            </button>
-          </form>
-        </div>
-      </article>
+          </>
+        }
+      />
+      {/* popup avatar update */}
+      <PopupWithForm
+        onClose={closeAllPopups}
+        isOpen={isEditAvatarPopupOpen}
+        name="avatar"
+        title="Обновить аватар"
+        buttonText=" Сохранить"
+        children={
+          <>
+            <div className="popup__fieldset">
+              <input
+                className="popup__input popup__input_form_avatar"
+                name="avatar"
+                placeholder="Ссылка на аватар"
+                type="url"
+                defaultValue=""
+                required=""
+                id="avatar"
+              />
+              <span className="popup__error avatar-error" />
+            </div>
+          </>
+        }
+      />
       {/* popup big photo */}
       <article className="popup popup_type_photo">
         <div className="popup__container popup__container_photo">
@@ -123,30 +167,6 @@ function App() {
               type="submit"
             >
               Да
-            </button>
-          </form>
-        </div>
-      </article>
-      {/* popup avatar update */}
-      <article className="popup popup_type_avatar">
-        <div className="popup__container">
-          <button className="popup__close popup__close_avatar" type="reset" />
-          <h2 className="popup__title">Обновить аватар</h2>
-          <form className="popup__form popup__form_avatar" name="form__avatar">
-            <div className="popup__fieldset">
-              <input
-                className="popup__input popup__input_form_avatar"
-                name="avatar"
-                placeholder="Ссылка на аватар"
-                type="url"
-                defaultValue=""
-                required=""
-                id="avatar"
-              />
-              <span className="popup__error avatar-error" />
-            </div>
-            <button className="popup__submit popup__submit_add" type="submit">
-              Сохранить
             </button>
           </form>
         </div>
