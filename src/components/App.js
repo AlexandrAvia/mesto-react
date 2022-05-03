@@ -16,7 +16,6 @@ function App() {
   }
 
   function handleEditProfileClick() {
-    console.log("props");
     setIsEditProfilePopupOpen(true);
   }
 
