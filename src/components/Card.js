@@ -1,7 +1,16 @@
 function Card(card) {
+  function handleClick() {
+    card.onCardClick(card);
+  }
+
   return (
     <article className="element__card">
-      <img className="element__image" src={card.link} alt={card.name} />
+      <img
+        className="element__image"
+        src={card.link}
+        alt={card.name}
+        onClick={handleClick}
+      />
       <div className="element__caption">
         <p className="element__title">{card.name}</p>
         <div className="element__like-group">

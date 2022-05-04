@@ -1,10 +1,16 @@
-function ImagePopup() {
+function ImagePopup({ card, onClose }) {
   return (
-    <article className="popup popup_type_photo">
+    <article
+      className={`popup popup_type_photo ${card.link && "popup_opened"}`}
+    >
       <div className="popup__container popup__container_photo">
-        <img src="." alt="" className="popup__image" />
+        <img src={card.link} alt={card.name} className="popup__image" />
         <p className="popup__image-title" />
-        <button className="popup__close popup__close_photo" type="reset" />
+        <button
+          className="popup__close popup__close_photo"
+          onClick={onClose}
+          type="reset"
+        />
       </div>
     </article>
   );

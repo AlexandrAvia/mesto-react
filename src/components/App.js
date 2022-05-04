@@ -3,6 +3,7 @@ import Header from "./Header";
 import Main from "./Main";
 import Footer from "./Footer";
 import PopupWithForm from "./PopupWithForm";
+import ImagePopup from "./ImagePopup";
 
 function App() {
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] =
@@ -10,6 +11,7 @@ function App() {
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] =
     React.useState(false);
   const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = React.useState(false);
+  const [selectedCard, setSelectedCard] = React.useState({});
 
   function handleEditAvatarClick() {
     setIsEditAvatarPopupOpen(true);
@@ -23,12 +25,15 @@ function App() {
     setIsAddPlacePopupOpen(true);
   }
 
+  function handleCardClick(card) {
+    setSelectedCard(card);
+  }
+
   function closeAllPopups() {
     setIsEditAvatarPopupOpen(false);
     setIsEditProfilePopupOpen(false);
     setIsAddPlacePopupOpen(false);
-    /* setIsCardDeletePopupOpen(false);
-    setSelectedCard({}); */
+    setSelectedCard({});
   }
 
   return (
@@ -38,6 +43,7 @@ function App() {
         onEditProfile={handleEditProfileClick}
         onAddPlace={handleAddPlaceClick}
         onEditAvatar={handleEditAvatarClick}
+        onCardClick={handleCardClick}
       />
       <Footer />
       {/* popup profile edit */}
@@ -143,13 +149,7 @@ function App() {
         }
       />
       {/* popup big photo */}
-      <article className="popup popup_type_photo">
-        <div className="popup__container popup__container_photo">
-          <img src="." alt="" className="popup__image" />
-          <p className="popup__image-title" />
-          <button className="popup__close popup__close_photo" type="reset" />
-        </div>
-      </article>
+      <ImagePopup onClose={closeAllPopups} card={selectedCard} />
       {/* popup with confirmation */}
       <article className="popup popup_type_confirmation">
         <div className="popup__container">
