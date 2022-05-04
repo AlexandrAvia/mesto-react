@@ -1,28 +1,28 @@
 {
   "files": {
-    "main.css": "/static/css/main.108ca128.css",
-    "main.js": "/static/js/main.60aba3eb.js",
-    "static/js/787.5530211c.chunk.js": "/static/js/787.5530211c.chunk.js",
-    "static/media/Inter-Medium.woff": "/static/media/Inter-Medium.9053572c46aeb4b16caa.woff",
-    "static/media/Inter-Black.woff": "/static/media/Inter-Black.7bb6234314ccc72c942a.woff",
-    "static/media/Inter-Regular.woff": "/static/media/Inter-Regular.e148c4a1158f8cee8285.woff",
-    "static/media/Inter-Medium.woff2": "/static/media/Inter-Medium.293fd13dbca5a3e450ef.woff2",
-    "static/media/Inter-Black.woff2": "/static/media/Inter-Black.768169b1912340d378ac.woff2",
-    "static/media/Inter-Regular.woff2": "/static/media/Inter-Regular.26a30a5f1103393aac70.woff2",
-    "static/media/logo.svg": "/static/media/logo.03b78ada3425e9132ff3db7ea8f4a6f6.svg",
-    "static/media/likeButton.svg": "/static/media/likeButton.87ed371465c7a6a1cd01.svg",
-    "static/media/deleteButton.svg": "/static/media/deleteButton.823b0cf1b0b7e9cb7cad.svg",
-    "index.html": "/index.html",
-    "static/media/likeButtonactive.svg": "/static/media/likeButtonactive.fe17a515669479b1e649.svg",
-    "static/media/EditButton.svg": "/static/media/EditButton.a1892ea72cb87c8fc3aa.svg",
-    "static/media/CloseIcon.svg": "/static/media/CloseIcon.2ceb783afbab75916ddc.svg",
-    "static/media/addbuttonplus.svg": "/static/media/addbuttonplus.d86bb2edc2f6eadb96b7.svg",
-    "main.108ca128.css.map": "/static/css/main.108ca128.css.map",
-    "main.60aba3eb.js.map": "/static/js/main.60aba3eb.js.map",
-    "787.5530211c.chunk.js.map": "/static/js/787.5530211c.chunk.js.map"
+    "main.css": "/mesto-react/static/css/main.5e623d64.css",
+    "main.js": "/mesto-react/static/js/main.c1ea19e9.js",
+    "static/js/787.5530211c.chunk.js": "/mesto-react/static/js/787.5530211c.chunk.js",
+    "static/media/Inter-Medium.woff": "/mesto-react/static/media/Inter-Medium.9053572c46aeb4b16caa.woff",
+    "static/media/Inter-Black.woff": "/mesto-react/static/media/Inter-Black.7bb6234314ccc72c942a.woff",
+    "static/media/Inter-Regular.woff": "/mesto-react/static/media/Inter-Regular.e148c4a1158f8cee8285.woff",
+    "static/media/Inter-Medium.woff2": "/mesto-react/static/media/Inter-Medium.293fd13dbca5a3e450ef.woff2",
+    "static/media/Inter-Black.woff2": "/mesto-react/static/media/Inter-Black.768169b1912340d378ac.woff2",
+    "static/media/Inter-Regular.woff2": "/mesto-react/static/media/Inter-Regular.26a30a5f1103393aac70.woff2",
+    "static/media/logo.svg": "/mesto-react/static/media/logo.03b78ada3425e9132ff3db7ea8f4a6f6.svg",
+    "static/media/likeButton.svg": "/mesto-react/static/media/likeButton.87ed371465c7a6a1cd01.svg",
+    "index.html": "/mesto-react/index.html",
+    "static/media/deleteButton.svg": "/mesto-react/static/media/deleteButton.823b0cf1b0b7e9cb7cad.svg",
+    "static/media/likeButtonactive.svg": "/mesto-react/static/media/likeButtonactive.fe17a515669479b1e649.svg",
+    "static/media/EditButton.svg": "/mesto-react/static/media/EditButton.a1892ea72cb87c8fc3aa.svg",
+    "static/media/CloseIcon.svg": "/mesto-react/static/media/CloseIcon.2ceb783afbab75916ddc.svg",
+    "static/media/addbuttonplus.svg": "/mesto-react/static/media/addbuttonplus.d86bb2edc2f6eadb96b7.svg",
+    "main.5e623d64.css.map": "/mesto-react/static/css/main.5e623d64.css.map",
+    "main.c1ea19e9.js.map": "/mesto-react/static/js/main.c1ea19e9.js.map",
+    "787.5530211c.chunk.js.map": "/mesto-react/static/js/787.5530211c.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.108ca128.css",
-    "static/js/main.60aba3eb.js"
+    "static/css/main.5e623d64.css",
+    "static/js/main.c1ea19e9.js"
   ]
 }
