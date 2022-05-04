@@ -1,18 +1,41 @@
+import React from "react";
+import { api } from "../utils/Api";
+import Card from "./Card";
 function Main(props) {
+  let [userName, setUserName] = React.useState("");
+  let [userDescription, setUserDescription] = React.useState("");
+  let [userAvatar, setUserAvatar] = React.useState("");
+  let [cards, setCards] = React.useState([]);
+  React.useEffect(() => {
+    Promise.all([api.getProfile(), api.getInitialCards()])
+      .then(([res, card]) => {
+        setUserName(res.name);
+        setUserDescription(res.about);
+        setUserAvatar(res.avatar);
+        console.log(card);
+        setCards(card);
+      })
+      .catch(console.log);
+  }, []);
+
   return (
     <main className="content">
       <section className="profile">
-        <div className="profile__avatar" onClick={props.onEditAvatar} />
+        <div
+          className="profile__avatar"
+          onClick={props.onEditAvatar}
+          style={{ backgroundImage: `url(${userAvatar})` }}
+        />
         <div className="profile__info">
           <div className="profile__container">
-            <h1 className="profile__name" />
+            <h1 className="profile__name">{userName}</h1>
             <button
               className="profile__edit"
               type="button"
               onClick={props.onEditProfile}
             />
           </div>
-          <p className="profile__profession" />
+          <p className="profile__profession">{userDescription}</p>
         </div>
         <button
           className="profile__add-gallery"
@@ -20,8 +43,11 @@ function Main(props) {
           onClick={props.onAddPlace}
         />
       </section>
-      <section className="element" />
-      <template className="element-template" />
+      <section className="element">
+        {cards.map((card) => (
+          <Card {...card} key={card._id} />
+        ))}
+      </section>
     </main>
   );
 }
