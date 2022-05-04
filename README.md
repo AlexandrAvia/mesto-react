@@ -8,7 +8,7 @@
 2. Удаление карточек
 3. Обновление информации о пользователи
 4. Обновление аватара
-   [Сылка на проект](https://alexandravia.github.io/mesto-react/)
+   [Ссылка на проект](https://alexandravia.github.io/mesto-react/)
 
 ### Используемые технологии
 
