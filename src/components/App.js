@@ -151,7 +151,7 @@ function App() {
       {/* popup big photo */}
       <ImagePopup onClose={closeAllPopups} card={selectedCard} />
       {/* popup with confirmation */}
-      <article className="popup popup_type_confirmation">
+      {/* <article className="popup popup_type_confirmation">
         <div className="popup__container">
           <h2 className="popup__title popup__title_confirmation">
             Вы уверены?
@@ -169,7 +169,7 @@ function App() {
             </button>
           </form>
         </div>
-      </article>
+      </article> */}
     </div>
   );
 }
