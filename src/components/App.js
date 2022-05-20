@@ -4,6 +4,8 @@ import Main from "./Main";
 import Footer from "./Footer";
 import PopupWithForm from "./PopupWithForm";
 import ImagePopup from "./ImagePopup";
+import { CurrentUserContext } from "../contexts/CurrentUserContext";
+import { api } from "../utils/Api";
 
 function App() {
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] =
@@ -12,6 +14,17 @@ function App() {
     React.useState(false);
   const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = React.useState(false);
   const [selectedCard, setSelectedCard] = React.useState({});
+  const [currentUser, setCurrentUser] = React.useState({});
+  const [cards, setCards] = React.useState([]);
+
+  React.useEffect(() => {
+    Promise.all([api.getProfile(), api.getInitialCards()])
+      .then(([userData, card]) => {
+        setCurrentUser(userData);
+        setCards(card);
+      })
+      .catch(console.log);
+  }, []);
 
   function handleEditAvatarClick() {
     setIsEditAvatarPopupOpen(true);
@@ -36,122 +49,132 @@ function App() {
     setSelectedCard({});
   }
 
+  function handleCardLike(card) {
+    const isLiked = card.likes.some((i) => i._id === currentUser._id);
+    api.changeLikeCardStatus(card._id, !isLiked).then((newCard) => {
+      setCards((state) => state.map((c) => (c._id === card._id ? newCard : c)));
+    });
+  }
+
   return (
-    <div className="page">
-      <Header />
-      <Main
-        onEditProfile={handleEditProfileClick}
-        onAddPlace={handleAddPlaceClick}
-        onEditAvatar={handleEditAvatarClick}
-        onCardClick={handleCardClick}
-      />
-      <Footer />
-      {/* popup profile edit */}
-      <PopupWithForm
-        onClose={closeAllPopups}
-        isOpen={isEditProfilePopupOpen}
-        name="profile"
-        title="Редактировать профиль"
-        buttonText="Сохранить"
-        children={
-          <>
-            <div className="popup__fieldset">
-              <input
-                type="text"
-                className="popup__input popup__input_form_name"
-                name="name"
-                placeholder="Имя"
-                required=""
-                minLength={2}
-                maxLength={40}
-                defaultValue=""
-                id="name"
-              />
-              <span className="popup__error name-error" />
-            </div>
-            <div className="popup__fieldset">
-              <input
-                type="text"
-                className="popup__input popup__input_form_profession"
-                name="profession"
-                placeholder="Профессия"
-                required=""
-                minLength={2}
-                maxLength={200}
-                defaultValue=""
-                id="proffesion"
-              />
-              <span className="popup__error proffesion-error" />
-            </div>
-          </>
-        }
-      />
-      {/* popup add gallery card  */}
-      <PopupWithForm
-        onClose={closeAllPopups}
-        isOpen={isAddPlacePopupOpen}
-        name="gallery"
-        title="Новое место"
-        buttonText="Создать"
-        children={
-          <>
-            <div className="popup__fieldset">
-              <input
-                type="text"
-                className="popup__input popup__input_form_image-title"
-                name="place"
-                placeholder="Название"
-                required=""
-                minLength={2}
-                maxLength={30}
-                defaultValue=""
-                id="place-name"
-              />
-              <span className="popup__error place-name-error" />
-            </div>
-            <div className="popup__fieldset">
-              <input
-                className="popup__input popup__input_form_image-src"
-                name="url"
-                placeholder="Ссылка на картинку"
-                type="url"
-                defaultValue=""
-                required=""
-                id="place-url"
-              />
-              <span className="popup__error place-url-error" />
-            </div>
-          </>
-        }
-      />
-      {/* popup avatar update */}
-      <PopupWithForm
-        onClose={closeAllPopups}
-        isOpen={isEditAvatarPopupOpen}
-        name="avatar"
-        title="Обновить аватар"
-        buttonText=" Сохранить"
-        children={
-          <>
-            <div className="popup__fieldset">
-              <input
-                className="popup__input popup__input_form_avatar"
-                name="avatar"
-                placeholder="Ссылка на аватар"
-                type="url"
-                defaultValue=""
-                required=""
-                id="avatar"
-              />
-              <span className="popup__error avatar-error" />
-            </div>
-          </>
-        }
-      />
-      {/* popup big photo */}
-      <ImagePopup onClose={closeAllPopups} card={selectedCard} />
-      {/* popup with confirmation */}
-      {/* <article className="popup popup_type_confirmation">
+    <CurrentUserContext.Provider value={currentUser}>
+      <div className="page">
+        <Header />
+        <Main
+          onEditProfile={handleEditProfileClick}
+          onAddPlace={handleAddPlaceClick}
+          onEditAvatar={handleEditAvatarClick}
+          onCardClick={handleCardClick}
+          cards={cards}
+          onCardLike={handleCardLike}
+        />
+        <Footer />
+        {/* popup profile edit */}
+        <PopupWithForm
+          onClose={closeAllPopups}
+          isOpen={isEditProfilePopupOpen}
+          name="profile"
+          title="Редактировать профиль"
+          buttonText="Сохранить"
+          children={
+            <>
+              <div className="popup__fieldset">
+                <input
+                  type="text"
+                  className="popup__input popup__input_form_name"
+                  name="name"
+                  placeholder="Имя"
+                  required=""
+                  minLength={2}
+                  maxLength={40}
+                  defaultValue=""
+                  id="name"
+                />
+                <span className="popup__error name-error" />
+              </div>
+              <div className="popup__fieldset">
+                <input
+                  type="text"
+                  className="popup__input popup__input_form_profession"
+                  name="profession"
+                  placeholder="Профессия"
+                  required=""
+                  minLength={2}
+                  maxLength={200}
+                  defaultValue=""
+                  id="proffesion"
+                />
+                <span className="popup__error proffesion-error" />
+              </div>
+            </>
+          }
+        />
+        {/* popup add gallery card  */}
+        <PopupWithForm
+          onClose={closeAllPopups}
+          isOpen={isAddPlacePopupOpen}
+          name="gallery"
+          title="Новое место"
+          buttonText="Создать"
+          children={
+            <>
+              <div className="popup__fieldset">
+                <input
+                  type="text"
+                  className="popup__input popup__input_form_image-title"
+                  name="place"
+                  placeholder="Название"
+                  required=""
+                  minLength={2}
+                  maxLength={30}
+                  defaultValue=""
+                  id="place-name"
+                />
+                <span className="popup__error place-name-error" />
+              </div>
+              <div className="popup__fieldset">
+                <input
+                  className="popup__input popup__input_form_image-src"
+                  name="url"
+                  placeholder="Ссылка на картинку"
+                  type="url"
+                  defaultValue=""
+                  required=""
+                  id="place-url"
+                />
+                <span className="popup__error place-url-error" />
+              </div>
+            </>
+          }
+        />
+        {/* popup avatar update */}
+        <PopupWithForm
+          onClose={closeAllPopups}
+          isOpen={isEditAvatarPopupOpen}
+          name="avatar"
+          title="Обновить аватар"
+          buttonText=" Сохранить"
+          children={
+            <>
+              <div className="popup__fieldset">
+                <input
+                  className="popup__input popup__input_form_avatar"
+                  name="avatar"
+                  placeholder="Ссылка на аватар"
+                  type="url"
+                  defaultValue=""
+                  required=""
+                  id="avatar"
+                />
+                <span className="popup__error avatar-error" />
+              </div>
+            </>
+          }
+        />
+        {/* popup big photo */}
+        <ImagePopup onClose={closeAllPopups} card={selectedCard} />
+        {/* popup with confirmation */}
+        {/* <article className="popup popup_type_confirmation">
         <div className="popup__container">
           <h2 className="popup__title popup__title_confirmation">
             Вы уверены?
@@ -170,7 +193,8 @@ function App() {
           </form>
         </div>
       </article> */}
-    </div>
+      </div>
+    </CurrentUserContext.Provider>
   );
 }
 
