@@ -6,6 +6,7 @@ import PopupWithForm from "./PopupWithForm";
 import ImagePopup from "./ImagePopup";
 import { CurrentUserContext } from "../contexts/CurrentUserContext";
 import { api } from "../utils/Api";
+import EditProfilePopup from "./EditProfilePopup";
 
 function App() {
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] =
@@ -56,6 +57,29 @@ function App() {
     });
   }
 
+  function handleCardDelete(card) {
+    api
+      .deleteCard(card._id)
+      .then(() => {
+        setCards((state) => state.filter((item) => item._id !== card._id));
+      })
+      .catch((res) => {
+        console.log(res);
+      });
+  }
+
+  function handleUpdateUser({ name, about }) {
+    api
+      .editProfile(name, about)
+      .then((userData) => {
+        setCurrentUser(userData);
+        closeAllPopups();
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <div className="page">
@@ -67,47 +91,14 @@ function App() {
           onCardClick={handleCardClick}
           cards={cards}
           onCardLike={handleCardLike}
+          onCardDelete={handleCardDelete}
         />
         <Footer />
         {/* popup profile edit */}
-        <PopupWithForm
-          onClose={closeAllPopups}
+        <EditProfilePopup
           isOpen={isEditProfilePopupOpen}
-          name="profile"
-          title="Редактировать профиль"
-          buttonText="Сохранить"
-          children={
-            <>
-              <div className="popup__fieldset">
-                <input
-                  type="text"
-                  className="popup__input popup__input_form_name"
-                  name="name"
-                  placeholder="Имя"
-                  required=""
-                  minLength={2}
-                  maxLength={40}
-                  defaultValue=""
-                  id="name"
-                />
-                <span className="popup__error name-error" />
-              </div>
-              <div className="popup__fieldset">
-                <input
-                  type="text"
-                  className="popup__input popup__input_form_profession"
-                  name="profession"
-                  placeholder="Профессия"
-                  required=""
-                  minLength={2}
-                  maxLength={200}
-                  defaultValue=""
-                  id="proffesion"
-                />
-                <span className="popup__error proffesion-error" />
-              </div>
-            </>
-          }
+          onClose={closeAllPopups}
+          onUpdateUser={handleUpdateUser}
         />
         {/* popup add gallery card  */}
         <PopupWithForm

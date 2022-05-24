@@ -17,6 +17,10 @@ function Card(card) {
     card.onCardLike(card);
   }
 
+  function handleDeleteClick() {
+    card.onCardDelete(card);
+  }
+
   return (
     <article className="element__card">
       <img
@@ -41,6 +45,7 @@ function Card(card) {
         className="element__delete-button"
         type="button"
         aria-label="Удалить карточку"
+        onClick={handleDeleteClick}
         style={{ display: cardDeleteButtonDisplay }}
       />
     </article>

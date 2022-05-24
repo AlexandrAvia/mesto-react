@@ -11,6 +11,7 @@ function PopupWithForm(props) {
         <form
           className={`popup__form popup__form_${props.name}`}
           name={props.name}
+          onSubmit={props.onSubmit}
         >
           {props.children}
           <button
