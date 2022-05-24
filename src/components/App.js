@@ -2,11 +2,12 @@ import React from "react";
 import Header from "./Header";
 import Main from "./Main";
 import Footer from "./Footer";
-import PopupWithForm from "./PopupWithForm";
 import ImagePopup from "./ImagePopup";
 import { CurrentUserContext } from "../contexts/CurrentUserContext";
 import { api } from "../utils/Api";
 import EditProfilePopup from "./EditProfilePopup";
+import EditAvatarPopup from "./EditAvatarPopup";
+import AddPlacePopup from "./AddPlacePopup";
 
 function App() {
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] =
@@ -80,6 +81,30 @@ function App() {
       });
   }
 
+  function handleUpdateAvatar(data) {
+    api
+      .avatarUpdate(data.avatar)
+      .then((userData) => {
+        setCurrentUser(userData);
+        closeAllPopups();
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+
+  function handleAddPlaceSubmit({ title, link }) {
+    api
+      .addCard(title, link)
+      .then((newCard) => {
+        setCards([newCard, ...cards]);
+        closeAllPopups();
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <div className="page">
@@ -101,66 +126,16 @@ function App() {
           onUpdateUser={handleUpdateUser}
         />
         {/* popup add gallery card  */}
-        <PopupWithForm
-          onClose={closeAllPopups}
+        <AddPlacePopup
           isOpen={isAddPlacePopupOpen}
-          name="gallery"
-          title="Новое место"
-          buttonText="Создать"
-          children={
-            <>
-              <div className="popup__fieldset">
-                <input
-                  type="text"
-                  className="popup__input popup__input_form_image-title"
-                  name="place"
-                  placeholder="Название"
-                  required=""
-                  minLength={2}
-                  maxLength={30}
-                  defaultValue=""
-                  id="place-name"
-                />
-                <span className="popup__error place-name-error" />
-              </div>
-              <div className="popup__fieldset">
-                <input
-                  className="popup__input popup__input_form_image-src"
-                  name="url"
-                  placeholder="Ссылка на картинку"
-                  type="url"
-                  defaultValue=""
-                  required=""
-                  id="place-url"
-                />
-                <span className="popup__error place-url-error" />
-              </div>
-            </>
-          }
+          onClose={closeAllPopups}
+          onAddPlace={handleAddPlaceSubmit}
         />
         {/* popup avatar update */}
-        <PopupWithForm
-          onClose={closeAllPopups}
+        <EditAvatarPopup
           isOpen={isEditAvatarPopupOpen}
-          name="avatar"
-          title="Обновить аватар"
-          buttonText=" Сохранить"
-          children={
-            <>
-              <div className="popup__fieldset">
-                <input
-                  className="popup__input popup__input_form_avatar"
-                  name="avatar"
-                  placeholder="Ссылка на аватар"
-                  type="url"
-                  defaultValue=""
-                  required=""
-                  id="avatar"
-                />
-                <span className="popup__error avatar-error" />
-              </div>
-            </>
-          }
+          onClose={closeAllPopups}
+          onUpdateAvatar={handleUpdateAvatar}
         />
         {/* popup big photo */}
         <ImagePopup onClose={closeAllPopups} card={selectedCard} />
