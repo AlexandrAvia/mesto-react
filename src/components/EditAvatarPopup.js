@@ -13,7 +13,7 @@ function EditAvatarPopup(props) {
 
   React.useEffect(() => {
     linkAvatar.current.value = "";
-  });
+  }, [props.isOpen]);
 
   return (
     <PopupWithForm
@@ -23,24 +23,21 @@ function EditAvatarPopup(props) {
       name="avatar"
       title="Обновить аватар"
       buttonText=" Сохранить"
-      children={
-        <>
-          <div className="popup__fieldset">
-            <input
-              className="popup__input popup__input_form_avatar"
-              name="avatar"
-              placeholder="Ссылка на аватар"
-              type="url"
-              defaultValue=""
-              required=""
-              id="avatar"
-              ref={linkAvatar}
-            />
-            <span className="popup__error avatar-error" />
-          </div>
-        </>
-      }
-    />
+    >
+      <div className="popup__fieldset">
+        <input
+          className="popup__input popup__input_form_avatar"
+          name="avatar"
+          placeholder="Ссылка на аватар"
+          type="url"
+          defaultValue=""
+          required=""
+          id="avatar"
+          ref={linkAvatar}
+        />
+        <span className="popup__error avatar-error" />
+      </div>
+    </PopupWithForm>
   );
 }
 

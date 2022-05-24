@@ -32,39 +32,36 @@ function AddPlacePopup(props) {
       name="gallery"
       title="Новое место"
       buttonText="Создать"
-      children={
-        <>
-          <div className="popup__fieldset">
-            <input
-              type="text"
-              className="popup__input popup__input_form_image-title"
-              name="place"
-              placeholder="Название"
-              required=""
-              minLength={2}
-              maxLength={30}
-              id="place-name"
-              onChange={handleChangeName}
-              value={nameCard}
-            />
-            <span className="popup__error place-name-error" />
-          </div>
-          <div className="popup__fieldset">
-            <input
-              className="popup__input popup__input_form_image-src"
-              name="url"
-              placeholder="Ссылка на картинку"
-              type="url"
-              required=""
-              id="place-url"
-              onChange={handleChangeLink}
-              value={link}
-            />
-            <span className="popup__error place-url-error" />
-          </div>
-        </>
-      }
-    />
+    >
+      <div className="popup__fieldset">
+        <input
+          type="text"
+          className="popup__input popup__input_form_image-title"
+          name="place"
+          placeholder="Название"
+          required=""
+          minLength={2}
+          maxLength={30}
+          id="place-name"
+          onChange={handleChangeName}
+          value={nameCard}
+        />
+        <span className="popup__error place-name-error" />
+      </div>
+      <div className="popup__fieldset">
+        <input
+          className="popup__input popup__input_form_image-src"
+          name="url"
+          placeholder="Ссылка на картинку"
+          type="url"
+          required=""
+          id="place-url"
+          onChange={handleChangeLink}
+          value={link}
+        />
+        <span className="popup__error place-url-error" />
+      </div>
+    </PopupWithForm>
   );
 }
 

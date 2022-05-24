@@ -10,7 +10,7 @@ function EditProfilePopup(props) {
   React.useEffect(() => {
     setName(currentUser.name);
     setDescription(currentUser.about);
-  }, [currentUser]);
+  }, [currentUser, props.isOpen]);
 
   function handleNameChange(e) {
     setName(e.target.value);
@@ -37,41 +37,38 @@ function EditProfilePopup(props) {
       name="profile"
       title="Редактировать профиль"
       buttonText="Сохранить"
-      children={
-        <>
-          <div className="popup__fieldset">
-            <input
-              type="text"
-              className="popup__input popup__input_form_name"
-              name="name"
-              placeholder="Имя"
-              required=""
-              minLength={2}
-              maxLength={40}
-              id="name"
-              value={name || ""}
-              onChange={handleNameChange}
-            />
-            <span className="popup__error name-error" />
-          </div>
-          <div className="popup__fieldset">
-            <input
-              type="text"
-              className="popup__input popup__input_form_profession"
-              name="profession"
-              placeholder="Профессия"
-              required=""
-              minLength={2}
-              maxLength={200}
-              id="proffesion"
-              value={description || ""}
-              onChange={handleDescriptionChange}
-            />
-            <span className="popup__error proffesion-error" />
-          </div>
-        </>
-      }
-    />
+    >
+      <div className="popup__fieldset">
+        <input
+          type="text"
+          className="popup__input popup__input_form_name"
+          name="name"
+          placeholder="Имя"
+          required=""
+          minLength={2}
+          maxLength={40}
+          id="name"
+          value={name || ""}
+          onChange={handleNameChange}
+        />
+        <span className="popup__error name-error" />
+      </div>
+      <div className="popup__fieldset">
+        <input
+          type="text"
+          className="popup__input popup__input_form_profession"
+          name="profession"
+          placeholder="Профессия"
+          required=""
+          minLength={2}
+          maxLength={200}
+          id="proffesion"
+          value={description || ""}
+          onChange={handleDescriptionChange}
+        />
+        <span className="popup__error proffesion-error" />
+      </div>
+    </PopupWithForm>
   );
 }
 export default EditProfilePopup;
